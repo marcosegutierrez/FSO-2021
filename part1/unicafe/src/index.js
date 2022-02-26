@@ -7,24 +7,26 @@ const Button = (props) => (
   </button>
 )
 
-const Stats = (props) => (
+const Statics = (props) => (
   <p>
     Good {props.good}<br/>
     Neutral {props.neutral}<br/>
     Bad {props.bad}<br/>
-    All {props.all}
+    All {props.all}<br/>
+    <Average good = {props.good} bad = {props.bad} all = {props.all} />
+    <Positive good = {props.good} all = {props.all} />
   </p>
 )
 
 const Average = (props) => {
   let avgScore = props.good - props.bad
   let average = avgScore/props.all
-  return(<p>Average {average}</p>)
+  return(<div>Average {average}</div>)
 }
 
 const Positive = (props) => {
   let perPositive = props.good/props.all*100
-  return(<p>Porsitive {perPositive}%</p>)
+  return(<div>Porsitive {perPositive}%</div>)
 }
 
 const App = () => {
@@ -55,9 +57,7 @@ const App = () => {
       <Button handleClick={() => setToNeutral(neutral + 1)} text = 'Neutral' />
       <Button handleClick={() => setToBad(bad + 1)} text = 'Bad' />
       <h1>Statistics</h1>
-      <Stats good = {good} neutral = {neutral} bad = {bad} all = {all} />
-      <Average good = {good} bad = {bad} all = {all} />
-      <Positive good = {good} all = {all} />
+      <Statics good = {good} neutral = {neutral} bad = {bad} all = {all} />
     </div>
   )
 }
