@@ -7,44 +7,45 @@ const Button = (props) => (
   </button>
 )
 
-const Display = (props) => (
-  <p>{props.text} {props.state}</p>
+const Stats = (props) => (
+  <p>
+    Good {props.good}<br/>
+    Neutral {props.neutral}<br/>
+    Bad {props.bad}<br/>
+    All {props.all}
+  </p>
 )
+
+const Average = (props) => {
+  let avgScore = props.good - props.bad
+  let average = avgScore/props.all
+  return(<p>Average {average}</p>)
+}
+
+const Positive = (props) => {
+  let perPositive = props.good/props.all*100
+  return(<p>Porsitive {perPositive}%</p>)
+}
 
 const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const [all, setAll] = useState(0)
-  const [avg, setAvg] = useState(0)
-  const [avgScore, setAvgScore] = useState(0)
 
   const setToGood = (newValue) => {
     setGood(newValue)
     setAll(all+1)
-    setAvgScore(avgScore+1)
-    setToAvg(avgScore)
   }
 
   const setToNeutral = (newValue) => {
     setNeutral(newValue)
     setAll(all+1)
-    setAvgScore(avgScore)
-    setToAvg(avgScore)
   }
 
   const setToBad = (newValue) => {
     setBad(newValue)
     setAll(all+1)
-    setAvgScore(avgScore-1)
-    setToAvg(avgScore)
-  }
-
-  const setToAvg = (avgValue) => {
-    if (all !== 0){
-      setAvg(avgValue/all)
-    }
-    else setAvg(avgValue)
   }
 
   return (
@@ -53,12 +54,10 @@ const App = () => {
       <Button handleClick={() => setToGood(good + 1)} text = 'Good' />
       <Button handleClick={() => setToNeutral(neutral + 1)} text = 'Neutral' />
       <Button handleClick={() => setToBad(bad + 1)} text = 'Bad' />
-      <h1>Statics</h1>
-      <Display text = 'Good' state = {good} />
-      <Display text = 'Neutral' state = {neutral} />
-      <Display text = 'Bad' state = {bad} />
-      <Display text = 'All' state = {all} />
-      <Display text = 'Average' state = {avg} />
+      <h1>Statistics</h1>
+      <Stats good = {good} neutral = {neutral} bad = {bad} all = {all} />
+      <Average good = {good} bad = {bad} all = {all} />
+      <Positive good = {good} all = {all} />
     </div>
   )
 }
