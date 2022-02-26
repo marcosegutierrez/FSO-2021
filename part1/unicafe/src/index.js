@@ -7,16 +7,25 @@ const Button = (props) => (
   </button>
 )
 
-const Statics = (props) => (
-  <p>
-    Good {props.good}<br/>
-    Neutral {props.neutral}<br/>
-    Bad {props.bad}<br/>
-    All {props.all}<br/>
-    <Average good = {props.good} bad = {props.bad} all = {props.all} />
-    <Positive good = {props.good} all = {props.all} />
-  </p>
-)
+const Statics = (props) => {
+  if (props.all !== 0) {
+    return(
+      <p>
+      Good {props.good}<br/>
+      Neutral {props.neutral}<br/>
+      Bad {props.bad}<br/>
+      All {props.all}<br/>
+      <Average good = {props.good} bad = {props.bad} all = {props.all} />
+      <Positive good = {props.good} all = {props.all} />
+      </p>
+    )
+  }
+  else {
+    return(
+      <p>No feedback given </p>
+    )
+  }
+}
 
 const Average = (props) => {
   let avgScore = props.good - props.bad
