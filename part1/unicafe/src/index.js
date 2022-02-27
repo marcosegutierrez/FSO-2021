@@ -7,17 +7,29 @@ const Button = (props) => (
   </button>
 )
 
+const TableStats = (props) => (
+  <tr>
+    <td> {props.text} </td>
+    <td> {props.value} </td>
+  </tr>
+)
+
 const Statics = (props) => {
-  if (props.all !== 0) {
+  let all = props.good + props.neutral + props.bad
+  let avgScore = props.good - props.bad
+  let average = avgScore/all
+  let perPositive = props.good/all*100+'%'
+
+  if (all > 0) {
     return(
-      <p>
-      Good {props.good}<br/>
-      Neutral {props.neutral}<br/>
-      Bad {props.bad}<br/>
-      All {props.all}<br/>
-      <Average good = {props.good} bad = {props.bad} all = {props.all} />
-      <Positive good = {props.good} all = {props.all} />
-      </p>
+      <tr>
+        <TableStats text='Good' value={props.good} />
+        <TableStats text='Neutral' value={props.neutral} />
+        <TableStats text='Bad' value={props.bad} />
+        <TableStats text='All' value={all} />
+        <TableStats text='Average' value={average} />
+        <TableStats text='Positive' value={perPositive} />
+      </tr>
     )
   }
   else {
@@ -27,36 +39,21 @@ const Statics = (props) => {
   }
 }
 
-const Average = (props) => {
-  let avgScore = props.good - props.bad
-  let average = avgScore/props.all
-  return(<div>Average {average}</div>)
-}
-
-const Positive = (props) => {
-  let perPositive = props.good/props.all*100
-  return(<div>Porsitive {perPositive}%</div>)
-}
-
 const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-  const [all, setAll] = useState(0)
 
   const setToGood = (newValue) => {
     setGood(newValue)
-    setAll(all+1)
   }
 
   const setToNeutral = (newValue) => {
     setNeutral(newValue)
-    setAll(all+1)
   }
 
   const setToBad = (newValue) => {
     setBad(newValue)
-    setAll(all+1)
   }
 
   return (
@@ -66,7 +63,7 @@ const App = () => {
       <Button handleClick={() => setToNeutral(neutral + 1)} text = 'Neutral' />
       <Button handleClick={() => setToBad(bad + 1)} text = 'Bad' />
       <h1>Statistics</h1>
-      <Statics good = {good} neutral = {neutral} bad = {bad} all = {all} />
+      <Statics good = {good} neutral = {neutral} bad = {bad}/>
     </div>
   )
 }
