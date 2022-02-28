@@ -7,7 +7,7 @@ const Course = props => {
     const {course} = props
     return(
         <div>
-            <Header key={course.id} course={course} />
+            <Header course={course} />
             <Content course={course} />
             <Total course={course} />
         </div>

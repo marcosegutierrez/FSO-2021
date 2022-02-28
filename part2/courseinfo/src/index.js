@@ -22,10 +22,15 @@ const App = () => {
         exercises: 14,
         id: 3,
       },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4,
+      },
     ],
   }
  
-  return ( <Course key={course.id} course={course} /> )
+  return ( <Course course={course} /> )
 }
  
 ReactDOM.render(<App />, document.getElementById('root'))
